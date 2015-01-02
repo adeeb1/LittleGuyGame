@@ -154,10 +154,35 @@ namespace LittleGuyWishTextParser
             // Get the wish action verb
             String WishActionVerb = WishArray[WishActionVerbIndex];
 
+            // Get the wish quantity
+
+            // Stores the word index at which the quantity would be specified
+            int WishQuantityIndex = (WishActionVerbIndex + 1);
+
+            // Stores the wish quantity
+            int WishQuantity;
+
+            // Check if we cannot get the wish quantity
+            if (int.TryParse(WishArray[WishQuantityIndex], out WishQuantity) == false)
+            {
+                // Check if the wish quantity specified is "a," "the," or "da"
+                if (WishArray[WishQuantityIndex] == "a" || WishArray[WishQuantityIndex] == "the" || WishArray[WishQuantityIndex] == "da")
+                {
+                    // Set the quantity to 1
+                    WishQuantity = 1;
+                }
+                else // No wish quantity was specified, or it is in the incorrect format
+                {
+                    // Decrement the wish quantity index by 1 so that the wish action includes the word that normally would've been
+                    // reserved for the quantity
+                    WishQuantityIndex -= 1;
+                }
+            }
+
             // Get the wish action
 
             // Stores the word index at which the action of the wish begins
-            int WishActionIndex = (WishActionVerbIndex + 1);
+            int WishActionIndex = (WishQuantityIndex + 1);
 
             // Get the action by combining the rest of the words in the wish. Separate each word by space
             String WishAction = String.Join(" ", WishArray, WishActionIndex, (WishArray.Length - WishActionIndex));
@@ -165,9 +190,12 @@ namespace LittleGuyWishTextParser
             // Try to grant the wish based on the action specified
             switch (WishAction)
             {
-                case "a textbox":
-                    // Wish for a text box
-                    WishForTextBox((WishActionVerb == "had"));
+                case "textbox":
+                    for (int i = 0; i < WishQuantity; i++)
+                    {
+                        // Wish for a text box
+                        WishForTextBox((WishActionVerb == "had"));
+                    }
 
                     break;
             }
