@@ -1,0 +1,19 @@
+﻿<Window x:Class="LittleGuyWishTextParser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" UseLayoutRounding="True">
+    
+    <Grid Name="RootGrid" Margin="10">
+        <Grid Name="ContentGrid" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Enter your wish:" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+            <TextBox Name="txtBoxWish" Grid.Column="1" Margin="10,0,10,0" VerticalContentAlignment="Center" KeyDown="txtBoxWish_KeyDown" />
+            <Button Name="btnWish" Grid.Column="2" Content="Wish!" Padding="8,4,8,4" Click="Button_Click" />
+        </Grid>
+    </Grid>
+</Window>
